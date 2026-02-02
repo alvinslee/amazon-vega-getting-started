@@ -1,6 +1,7 @@
 
 import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, Image, View} from 'react-native';
+import {resolveImageSource} from '../utils/assetResolver';
 
 interface IProps {
   title: string;
@@ -11,6 +12,7 @@ interface IProps {
 
 const VideoCard = ({title, imgURL, description, pressFunction}: IProps) => {
   const [focused, setFocused] = useState(false);
+  const imageSource = resolveImageSource(imgURL);
 
   return (
     <TouchableOpacity
@@ -21,7 +23,7 @@ const VideoCard = ({title, imgURL, description, pressFunction}: IProps) => {
       onPress={() => pressFunction()}
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}>
-      <Image style={styles.videoImage} source={{uri: imgURL}} />
+      <Image style={styles.videoImage} source={imageSource} />
       <View style={styles.videoTextContainer}>
         <Text style={styles.videoTitle}>{title}</Text>
         <Text style={styles.videoDescription}>{description}</Text>
@@ -53,6 +55,8 @@ const styles = StyleSheet.create({
   },
   videoImage: {
     height: '75%',
+    width: '100%',
+    resizeMode: 'cover',
   },
   videoTitle: {
     fontSize: 20,

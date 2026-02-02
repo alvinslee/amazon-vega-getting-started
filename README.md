@@ -25,11 +25,15 @@ project/
 │   │   ├── Header.tsx      # App header component
 │   │   ├── VideoCard.tsx   # Video card with focus handling
 │   │   └── index.ts        # Component barrel exports
-│   └── screens/            # Screen components
-│       ├── LandingScreen.tsx        # Main screen with video categories
-│       ├── VideoDetailScreen.tsx    # Video detail view
-│       ├── VideoPlaybackScreen.tsx  # Video playback placeholder
-│       └── index.ts                 # Screen barrel exports
+│   ├── data/               
+│   │   └── NewVideoTestData.json.   # Local video catalog
+│   ├── screens/                     # Screen components
+│   │   ├── LandingScreen.tsx        # Main screen with video categories
+│   │   ├── VideoDetailScreen.tsx    # Video detail view
+│   │   ├── VideoPlaybackScreen.tsx  # Video playback placeholder
+│   │   └── index.ts                 # Screen barrel exports
+│   └── utils/            
+│       └── assetResolver.ts # Resolves image paths for the video catalog
 ```
 
 ## Components
@@ -40,6 +44,8 @@ project/
 
 ### VideoCard
 - Displays video thumbnail, title, and description
+- Uses `resolveImageSource` to support both local asset paths and remote URLs for thumbnails
+- Images displayed with `resizeMode: 'cover'`
 - Focus state management with yellow border when focused
 - Used in horizontal FlatLists on LandingScreen
 
@@ -51,13 +57,15 @@ project/
 ## Screens
 
 ### LandingScreen
-- Fetches video data from remote API
-- Displays two categories: "Costa Rica Islands" and "Costa Rica Underwater"
-- Uses `TVFocusGuideView` for TV focus management
+- Loads video data from local `NewVideoTestData.json`
+- Dynamically groups videos by category and renders a horizontal row per category
+- Currently displays two categories: "Hits" and "Costa Rica Islands"
+- Uses `TVFocusGuideView` for TV focus management; auto-focuses the first category row on load
 - Navigates to VideoDetailScreen on video selection
 
 ### VideoDetailScreen
 - Displays video details with background image
+- Uses `resolveImageSource` to support local asset paths for the background image
 - Shows video title, description, and action buttons
 - "Watch Now" button navigates to VideoPlaybackScreen
 - "Back" button returns to previous screen

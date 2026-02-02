@@ -2,13 +2,15 @@
 import React from 'react';
 import {ImageBackground, Text, View, StyleSheet} from 'react-native';
 import {Button} from '../components';
+import {resolveImageSource} from '../utils/assetResolver';
 
 const VideoDetailScreen = ({navigation, route}: any) => {
   const video = route.params.video;
+  const imageSource = resolveImageSource(video.imgURL);
 
   return (
     <ImageBackground
-      source={{uri: video.imgURL}}
+      source={imageSource}
       imageStyle={styles.image}
       style={styles.screenContainer}>
       <Text style={styles.videoTitle}>{video.title}</Text>
