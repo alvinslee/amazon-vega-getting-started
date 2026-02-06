@@ -20,7 +20,7 @@ const VideoDetailScreen = ({navigation, route}: any) => {
           buttonText="Watch Now"
           pressFunction={() =>
             navigation.navigate('VideoPlaybackScreen', {
-              videoURL: video.videoURL,
+              video: video,
             })
           }
         />
